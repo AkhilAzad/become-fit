@@ -1,6 +1,6 @@
 function startPayment(amount, plan) {
 
-  fetch("/create-order", {
+  fetch("/api/create-order", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -23,7 +23,7 @@ function startPayment(amount, plan) {
 
       handler: function (response) {
 
-        fetch("/verify-payment", {
+        fetch("/api/verify-payment", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
