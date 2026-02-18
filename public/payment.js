@@ -1,6 +1,6 @@
 function startPayment(amount, plan) {
 
-  fetch("/create-order", {
+  fetch("https://become-fit-backend.onrender.com/create-order",{
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -23,7 +23,7 @@ function startPayment(amount, plan) {
 
       handler: function (response) {
 
-        fetch("/verify-payment", {
+        fetch("https://become-fit-backend.onrender.com/verify-payment", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
