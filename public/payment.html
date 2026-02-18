@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Checkout | Become Fit</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="payment.css" />
+  <link rel="stylesheet" href="about.css" />
+</head>
+
+<body>
+
+  <div class="screen-overlay"></div>
+
+  <!-- PAGE WRAPPER (flex column) -->
+  <div class="page-wrap">
+
+    <!-- HEADER -->
+    <header class="site-header">
+      <div class="logo">Become Fit</div>
+      <nav class="main-nav">
+        <a href="index.html">Home</a>
+      </nav>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="container hero payment">
+      <div class="hero-content">
+
+        <header class="header">
+          <h1>Become Fit – Premium Guide</h1>
+          <p class="tagline">One-time purchase. Instant PDF access.</p>
+        </header>
+
+        <main class="content plans-compare">
+
+          <!-- BASIC PLAN -->
+          <section class="plan-column">
+            <h2 class="features-title">What you get</h2>
+
+            <ul class="features-list">
+              <li class="included">Beginner to advanced workout plans</li>
+              <li class="excluded">Complete fitness transformation PDF</li>
+              <li class="excluded">Nutrition & recovery guidance</li>
+            </ul>
+
+            <div class="price-card basic">
+              <span class="badge">MOST POPULAR</span>
+              <span class="plan-title">Basic Plan</span>
+              <div class="price">₹99</div>
+              <p class="price-note">One-time payment</p>
+<button class="payBtn" onclick="startPayment(99, 'Basic Plan')">
+  Get Exercise PDF
+</button>
+            </div>
+          </section>
+
+          <!-- STANDARD PLAN -->
+          <section class="plan-column">
+            <h2 class="features-title">What you get</h2>
+
+            <ul class="features-list">
+              <li class="included">Beginner to advanced workout plans</li>
+              <li class="included">Complete fitness transformation PDF</li>
+              <li class="excluded">Nutrition & recovery guidance</li>
+            </ul>
+
+            <div class="price-card standard">
+              <span class="badge">MOST POPULAR</span>
+              <span class="plan-title">Standard Plan</span>
+              <div class="price">₹249</div>
+              <p class="price-note">One-time payment</p>
+<button class="payBtn" onclick="startPayment(249, 'Standard Plan')">
+  Unlock Training Guide
+</button>
+            </div>
+          </section>
+
+          <!-- PREMIUM PLAN -->
+          <section class="plan-column">
+            <h2 class="features-title">What you get</h2>
+
+            <ul class="features-list">
+              <li class="included">Beginner to advanced workout plans</li>
+              <li class="included">Complete fitness transformation PDF</li>
+              <li class="included">Nutrition & recovery guidance</li>
+            </ul>
+
+            <div class="price-card premium">
+              <span class="badge">MOST POPULAR</span>
+              <span class="plan-title">Premium Plan</span>
+              <div class="price">₹449</div>
+              <p class="price-note">One-time payment • Instant access</p>
+<button class="payBtn" onclick="startPayment(449, 'Premium Plan')">
+  Unlock Complete Guide
+</button>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- FOOTER (ALWAYS AT BOTTOM) -->
+    <footer class="footer">
+      © 2026 Become Fit
+    </footer>
+
+  </div>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="payment.js"></script>
+</body>
+</html>

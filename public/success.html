@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Payment Successful | Become Fit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(
+        circle at top,
+        #1a1a1a 0%,
+        #0d0d0d 55%,
+        #000 100%
+      );
+      color: #fff;
+    }
+
+    .success-wrapper {
+      width: 100%;
+      max-width: 520px;
+      padding: 60px 50px 70px;
+      background: radial-gradient(
+        circle at top,
+        #141414 0%,
+        #0c0c0c 60%,
+        #070707 100%
+      );
+      border-radius: 22px;
+      text-align: center;
+      box-shadow:
+        0 0 0 1px rgba(0,230,118,0.18),
+        0 40px 100px rgba(0,0,0,0.95),
+        0 0 80px rgba(0,230,118,0.25);
+    }
+
+    .check {
+      font-size: 48px;
+      color: #00e676;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: #9ee6b5;
+      margin-bottom: 30px;
+    }
+
+    .message {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #d0d0d0;
+      margin-bottom: 30px;
+    }
+
+    .download {
+      display: inline-block;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #00e676, #00c853);
+      color: #000;
+      font-weight: 600;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 12px 30px rgba(0,230,118,0.4);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(0,230,118,0.6);
+    }
+
+    .note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: #8a8a8a;
+    }
+
+    footer {
+      margin-top: 50px;
+      font-size: 12px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="success-wrapper">
+    <div class="check">✔</div>
+
+    <h1>Payment Successful</h1>
+    <div class="subtitle">Welcome to Become Fit</div>
+
+    <p class="message">
+      Your payment has been confirmed successfully.<br/>
+      Your premium guide is being prepared and will begin downloading automatically.
+    </p>
+
+    <a class="download" href="#">
+      Download Starting…
+    </a>
+
+    <p class="note">
+      If the download doesn’t start, please wait a few seconds.
+    </p>
+
+    <footer>
+      © 2026 Become Fit. All rights reserved.
+    </footer>
+  </div>
+
+</body>
+</html>

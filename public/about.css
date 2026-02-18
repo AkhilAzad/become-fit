@@ -1,0 +1,157 @@
+/* =========================
+   ABOUT PAGE – BECOME FIT
+   (Matches Payment Layout)
+   ========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+  background: #000;
+  min-height: 100vh;
+  padding: 24px;
+  color: #fff;
+}
+
+/* =========================
+   PAGE STRUCTURE
+   ========================= */
+
+.page-wrap {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   HEADER (SAME AS PAYMENT)
+   ========================= */
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.main-nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.main-nav a:hover {
+  color: #00e676;
+}
+
+/* =========================
+   CONTAINER (MATCHES PAYMENT CARD)
+   ========================= */
+
+.about-container {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  width: 100%;
+
+  background: linear-gradient(180deg, #0c0c0c, #080808);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 24px;
+  padding: 60px 40px;
+
+  box-shadow: 0 0 40px rgba(255,255,255,0.12);
+}
+
+/* =========================
+   HERO HEADER
+   ========================= */
+
+.header {
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.tagline {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* =========================
+   CONTENT
+   ========================= */
+
+.about-content {
+  max-width: 800px;
+  margin: 40px auto 0;
+  text-align: center;
+}
+
+.about-content p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #ccc;
+  margin-bottom: 18px;
+}
+
+/* Bullet points styled like features */
+.about-points {
+  list-style: none;
+  margin-top: 24px;
+}
+
+.about-points li {
+  font-size: 15px;
+  margin-bottom: 12px;
+  color: #9bd9b8;
+}
+
+.about-points li::before {
+  content: "✔";
+  color: #00e676;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+/* =========================
+   FOOTER (STICKS TO BOTTOM)
+   ========================= */
+
+.footer {
+  margin-top: auto;
+  padding: 24px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #777;
+  opacity: 0.6;
+}
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 900px) {
+  .about-container {
+    padding: 40px 24px;
+  }
+
+  .header h1 {
+    font-size: 26px;
+  }
+
+  .main-nav {
+    display: none;
+  }
+}
