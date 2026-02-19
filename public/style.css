@@ -257,30 +257,70 @@ body {
 }
 
 /* =========================
-   MOBILE
-========================= */
+   MOBILE REFINEMENT
+   ========================= */
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
 
-  .container {
-    padding: 40px 24px;
+  body {
+    padding: 14px;
   }
 
-  .hero {
-    grid-template-columns: 1fr;
-    gap: 40px;
+  .container {
+    padding: 28px 20px 40px;
+    border-radius: 18px;
+  }
+
+  .header {
+    margin-bottom: 20px;
   }
 
   .header h1 {
-    font-size: 30px;
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .tagline {
+    font-size: 14px;
+  }
+
+  .subline {
+    font-size: 13px;
   }
 
   .about p {
     font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .hero-image {
+    order: -1;
+    /* image goes above text on mobile */
+    margin-bottom: 20px;
+  }
+
+  .hero-image img {
+    max-width: 220px;
+  }
+
+  .not-for {
+    margin-top: 28px;
+    padding: 22px;
   }
 
   .stats {
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
   }
+
+  .cta button {
+    padding: 18px;
+    font-size: 16px;
+  }
+
 }
