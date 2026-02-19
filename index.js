@@ -12,9 +12,50 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
 
-// Initialize Razorpay
+// Serve static assets (css, js, images)
+app.use(express.static(path.join(__dirname, "public")));
+
+/* =====================================
+   CLEAN PAGE ROUTING
+===================================== */
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/html/index.html"));
+});
+
+app.get("/about", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/html/about.html"));
+});
+
+app.get("/contact", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/html/contact.html"));
+});
+
+app.get("/payment", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/html/payment.html"));
+});
+
+app.get("/success", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/html/success.html"));
+});
+
+app.get("/privacy", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/html/privacy.html"));
+});
+
+app.get("/refund", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/html/refund.html"));
+});
+
+app.get("/terms", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/html/terms.html"));
+});
+
+/* =====================================
+   RAZORPAY SETUP
+===================================== */
+
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
@@ -40,6 +81,7 @@ app.post("/create-order", async (req, res) => {
       currency: order.currency,
       plan: plan,
     });
+
   } catch (err) {
     console.error("Order creation error:", err);
     res.status(500).json({ error: "Order creation failed" });
@@ -48,6 +90,7 @@ app.post("/create-order", async (req, res) => {
 
 // VERIFY PAYMENT
 app.post("/verify-payment", (req, res) => {
+
   const {
     razorpay_order_id,
     razorpay_payment_id,
@@ -80,6 +123,7 @@ app.post("/verify-payment", (req, res) => {
 
 // SECURE DOWNLOAD
 app.get("/download/:plan", (req, res) => {
+
   const plan = req.params.plan;
 
   let fileName = "";
@@ -102,12 +146,6 @@ app.get("/download/:plan", (req, res) => {
   });
 });
 
-// ROOT CHECK
-app.get("/", (req, res) => {
-  res.send("Backend is running 🚀");
-});
-
-// Start Server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
