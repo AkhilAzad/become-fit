@@ -14,7 +14,7 @@ body {
   min-height: 100vh;
   padding: 24px;
   color: #fff;
-  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* =========================
@@ -48,6 +48,7 @@ body {
   text-decoration: none;
   color: #aaa;
   font-size: 14px;
+  transition: 0.3s ease;
 }
 
 .main-nav a:hover {
@@ -64,34 +65,37 @@ body {
   width: 100%;
 }
 
-
 .header {
   text-align: center;
   margin-top: 40px;
 }
 
 .header h1 {
-  font-size: 32px;
-  margin-bottom: 8px;
+  font-size: 34px;
+  margin-bottom: 10px;
 }
 
 .tagline {
-  font-size: 14px;
+  font-size: 15px;
   color: #aaa;
 }
 
 /* =========================
-   PLANS GRID
+   PLANS GRID (RESPONSIVE)
    ========================= */
 
 .plans-compare {
   display: grid;
-  grid-template-columns: repeat(3, 330px);
-  justify-content: center;   /* centers the full group */
-  gap: 48px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
   margin: 60px auto 0;
+  width: 100%;
+  max-width: 1100px;
 }
 
+/* =========================
+   PLAN COLUMN
+   ========================= */
 
 .plan-column {
   display: flex;
@@ -112,13 +116,10 @@ body {
 .features-list {
   list-style: none;
   width: 100%;
-  max-width: 330px;
-  margin: 0 auto;            /* ⬅ important */
+  max-width: 320px;
 }
 
-
 .features-list li {
-  justify-content: flex-start;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -143,25 +144,25 @@ body {
 }
 
 /* =========================
-   PRICE CARDS (IDENTICAL)
+   PRICE CARD
    ========================= */
 
 .price-card {
   width: 100%;
-  max-width: 330px;
+  max-width: 320px;
   min-height: 370px;
   padding: 28px 24px;
 
   border-radius: 20px;
   background: linear-gradient(180deg, #0c0c0c, #080808);
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
 
-  box-shadow: 0 0 28px rgba(255,255,255,0.12);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
 
   transition:
     transform 0.35s ease,
@@ -169,13 +170,12 @@ body {
     border-color 0.35s ease;
 }
 
-/* SAME GREEN HOVER FOR ALL */
 .price-card:hover {
   transform: translateY(-8px);
-  border-color: rgba(0,230,118,0.55);
+  border-color: rgba(0, 230, 118, 0.55);
   box-shadow:
-    0 0 45px rgba(0,230,118,0.6),
-    0 0 80px rgba(0,0,0,0.9);
+    0 0 40px rgba(0, 230, 118, 0.5),
+    0 0 80px rgba(0, 0, 0, 0.9);
 }
 
 /* =========================
@@ -183,14 +183,14 @@ body {
    ========================= */
 
 .plan-title {
-  font-size: 13px;
+  font-size: 14px;
   color: #9bd9b8;
 }
 
 .price {
-  font-size: 34px;
+  font-size: 36px;
   color: #00e676;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .price-note {
@@ -199,7 +199,7 @@ body {
 }
 
 /* =========================
-   BADGE (SPACE PRESERVED)
+   BADGE
    ========================= */
 
 .badge {
@@ -228,7 +228,7 @@ body {
   border: none;
 
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   cursor: pointer;
 
   background: linear-gradient(135deg, #00e676, #00c853);
@@ -239,11 +239,11 @@ body {
 
 .payBtn:hover {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 0 30px rgba(0,230,118,0.6);
+  box-shadow: 0 0 30px rgba(0, 230, 118, 0.6);
 }
 
 /* =========================
-   FOOTER (STICKS TO BOTTOM)
+   FOOTER
    ========================= */
 
 .footer {
@@ -256,15 +256,49 @@ body {
 }
 
 /* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 1024px) {
+  .plans-compare {
+    gap: 30px;
+  }
+}
+
+/* =========================
    MOBILE
    ========================= */
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
+
+  body {
+    padding: 18px;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .tagline {
+    font-size: 14px;
+  }
+
   .plans-compare {
     grid-template-columns: 1fr;
+    gap: 35px;
+    margin-top: 40px;
+  }
+
+  .price {
+    font-size: 28px;
+  }
+
+  .payBtn {
+    width: 100%;
   }
 
   .main-nav {
     display: none;
   }
+
 }
