@@ -14,11 +14,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+// Initialize Razorpay
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
-
 
 // CREATE ORDER
 app.post("/create-order", async (req, res) => {
@@ -41,7 +41,7 @@ app.post("/create-order", async (req, res) => {
       plan: plan,
     });
   } catch (err) {
-    console.error(err);
+    console.error("Order creation error:", err);
     res.status(500).json({ error: "Order creation failed" });
   }
 });
@@ -52,7 +52,7 @@ app.post("/verify-payment", (req, res) => {
     razorpay_order_id,
     razorpay_payment_id,
     razorpay_signature,
-    plan
+    plan,
   } = req.body;
 
   const body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -74,12 +74,11 @@ app.post("/verify-payment", (req, res) => {
 
   return res.json({
     success: true,
-    download: downloadRoute
+    download: downloadRoute,
   });
 });
 
-
-// 🔐 SECURE DOWNLOAD ROUTE
+// SECURE DOWNLOAD
 app.get("/download/:plan", (req, res) => {
   const plan = req.params.plan;
 
@@ -103,10 +102,12 @@ app.get("/download/:plan", (req, res) => {
   });
 });
 
+// ROOT CHECK
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
 
 // Start Server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-

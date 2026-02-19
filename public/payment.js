@@ -1,6 +1,10 @@
 function startPayment(amount, plan) {
 
+<<<<<<< HEAD
   fetch("https://become-fit-backend.onrender.com/create-order",{
+=======
+  fetch("/api/create-order", {
+>>>>>>> 435248c4e50ea07fb4c57bb1bd4431d317f8ee48
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -23,7 +27,11 @@ function startPayment(amount, plan) {
 
       handler: function (response) {
 
+<<<<<<< HEAD
         fetch("https://become-fit-backend.onrender.com/verify-payment", {
+=======
+        fetch("/api/verify-payment", {
+>>>>>>> 435248c4e50ea07fb4c57bb1bd4431d317f8ee48
           method: "POST",
           headers: {
             "Content-Type": "application/json"
