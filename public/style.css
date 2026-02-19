@@ -1,90 +1,327 @@
-/* ===== GLOBAL RESET ===== */
+/* =========================
+   GLOBAL RESET
+========================= */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
-/* ===== BODY ===== */
 body {
-  background: #1a1410;
-  color: #f5e6d3;
-  font-family: 'Cormorant Garamond', serif;
-  line-height: 1.7;
+  background: #000;
+  min-height: 100vh;
+  padding: 24px;
+  color: #ffffff;
 }
 
-/* Subtle vintage texture effect */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 3px 3px;
-  pointer-events: none;
-  opacity: 0.4;
+
+/* =========================
+   PAGE WRAP
+========================= */
+
+.page-wrap {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-/* ===== NAVBAR ===== */
-nav {
+/* =========================
+   HEADER
+========================= */
+
+.site-header {
   display: flex;
   justify-content: space-between;
-  padding: 25px 60px;
-  border-bottom: 1px solid #8b5e3c;
+  align-items: center;
+  padding: 10px 10px 40px;
 }
 
-nav a {
-  color: #c6a75e;
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #eaeaea;
+}
+
+.main-nav {
+  display: flex;
+  gap: 24px;
+}
+
+.main-nav a {
+  font-size: 14px;
+  color: #cfcfcf;
   text-decoration: none;
-  margin-left: 30px;
-  font-weight: 500;
-  letter-spacing: 1px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-nav a:hover {
-  color: #f5e6d3;
+.main-nav a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
 }
 
-/* ===== HERO SECTION ===== */
+/* =========================
+   MAIN CARD CONTAINER
+========================= */
+
+.container {
+  width: 100%;
+  background: radial-gradient(circle at top,
+      #141414 0%,
+      #0d0d0d 60%,
+      #080808 100%);
+  border-radius: 26px;
+  padding: 80px 80px 100px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 35px 90px rgba(0, 0, 0, 0.95);
+}
+
+/* =========================
+   HERO LAYOUT (REAL 2 COL)
+========================= */
+
 .hero {
-  padding: 100px 60px;
-  max-width: 900px;
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 80px;
+  align-items: start;
 }
 
-.hero h1 {
-  font-family: 'Cinzel', serif;
-  font-size: 64px;
-  color: #c6a75e;
-  margin-bottom: 20px;
-  letter-spacing: 2px;
+/* =========================
+   TEXT SIDE
+========================= */
+
+.hero-content {
+  max-width: 720px;
 }
 
-.hero p {
-  font-size: 20px;
-  color: #e8d9c0;
+.header {
   margin-bottom: 30px;
 }
 
-/* ===== BUTTON ===== */
-.btn {
-  display: inline-block;
-  padding: 14px 40px;
-  background: #c6a75e;
-  color: #1a1410;
-  border: 1px solid #8b5e3c;
+.header h1 {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.tagline {
+  font-size: 18px;
+  color: #cfcfcf;
+}
+
+.subline {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  color: #00e676;
+}
+
+/* ABOUT TEXT */
+
+.about p {
+  font-size: 17px;
+  line-height: 1.9;
+  color: #d6d6d6;
+  margin-bottom: 22px;
+}
+
+/* =========================
+   RIGHT SIDE COLUMN
+========================= */
+
+.hero-image {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* HERO IMAGE */
+
+.hero-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+  transition: 0.5s ease;
+}
+
+.hero-image img:hover {
+  transform: scale(1.03);
+}
+
+/* =========================
+   NOT FOR BOX (NOW RIGHT)
+========================= */
+
+.not-for {
+  padding: 32px;
+  border-radius: 18px;
+  background: linear-gradient(180deg,
+      rgba(255, 50, 50, 0.08),
+      rgba(0, 0, 0, 0.6));
+  border: 1px solid rgba(255, 80, 80, 0.18);
+}
+
+.not-for h2 {
+  font-size: 20px;
+  margin-bottom: 18px;
+  color: #ff6b6b;
+}
+
+.not-for ul {
+  list-style: none;
+}
+
+.not-for li {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 12px;
+  padding-left: 22px;
+  position: relative;
+  color: #d6d6d6;
+}
+
+.not-for li::before {
+  content: "✕";
+  position: absolute;
+  left: 0;
+  color: #ff6b6b;
   font-weight: bold;
-  text-decoration: none;
-  letter-spacing: 1px;
-  transition: 0.3s ease;
 }
 
-.btn:hover {
-  background: #a98c48;
+.not-for-note {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #9ae6b4;
 }
 
-/* ===== CARD SECTION ===== */
-.card {
-  background: rgba(139, 94, 60, 0.1);
-  border: 1px solid #8b5e3c;
-  padding: 30px;
-  margin-top: 40px;
+/* =========================
+   STATS
+========================= */
+
+.stats {
+  display: flex;
+  gap: 60px;
+  margin: 40px 0;
+}
+
+.stats strong {
+  display: block;
+  font-size: 24px;
+  color: #00e676;
+}
+
+.stats span {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta button {
+  width: 100%;
+  padding: 18px;
+  font-size: 18px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00e676, #00c853);
+  color: #000;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.cta button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 40px rgba(0, 230, 118, 0.6);
+}
+
+.note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #999;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  margin-top: 60px;
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+}
+
+/* =========================
+   MOBILE REFINEMENT
+   ========================= */
+
+@media (max-width: 768px) {
+
+  body {
+    padding: 14px;
+  }
+
+  .container {
+    padding: 28px 20px 40px;
+    border-radius: 18px;
+  }
+
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .tagline {
+    font-size: 14px;
+  }
+
+  .subline {
+    font-size: 13px;
+  }
+
+  .about p {
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .hero-image {
+    order: -1;
+    /* image goes above text on mobile */
+    margin-bottom: 20px;
+  }
+
+  .hero-image img {
+    max-width: 220px;
+  }
+
+  .not-for {
+    margin-top: 28px;
+    padding: 22px;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .cta button {
+    padding: 18px;
+    font-size: 16px;
+  }
+
 }
