@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Programs | Become Fit</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="payment.css" />
+</head>
+<body>
+  <div class="page-wrap">
+    <header class="site-header">
+      <div class="logo">Become Fit</div>
+      <nav class="main-nav"><a href="index.html">Home</a><a href="contact.html">Support</a></nav>
+    </header>
+
+    <main class="container">
+      <header class="header">
+        <h1>Choose Your Program</h1>
+        <p class="tagline">One-time payment. Instant PDF access. Built for real progress.</p>
+      </header>
+
+      <section class="plans-compare">
+        <article class="plan-column">
+          <h2>Basic Plan</h2>
+          <ul class="features-list"><li>Workout framework</li><li>Beginner friendly progression</li><li>Core movement guidance</li></ul>
+          <div class="price">₹99</div><p class="price-note">One-time payment</p>
+          <button class="payBtn" onclick="startPayment(99, 'Basic Plan')">Get Exercise PDF</button>
+        </article>
+
+        <article class="plan-column">
+          <h2>Standard Plan</h2>
+          <ul class="features-list"><li>Everything in Basic</li><li>Complete transformation guide</li><li>Structured training split</li></ul>
+          <div class="price">₹249</div><p class="price-note">One-time payment</p>
+          <button class="payBtn" onclick="startPayment(249, 'Standard Plan')">Unlock Training Guide</button>
+        </article>
+
+        <article class="plan-column">
+          <span class="badge">RECOMMENDED</span>
+          <h2>Premium Plan</h2>
+          <ul class="features-list"><li>Everything in Standard</li><li>Nutrition and recovery guidance</li><li>Complete digital package</li></ul>
+          <div class="price">₹449</div><p class="price-note">One-time payment · Instant access</p>
+          <button class="payBtn" onclick="startPayment(449, 'Premium Plan')">Unlock Complete Guide</button>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer">© 2026 Become Fit</footer>
+  </div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script src="payment.js"></script>
+</body>
+</html>
