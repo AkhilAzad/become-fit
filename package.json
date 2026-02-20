@@ -4,12 +4,19 @@
   "description": "BECOME FIT Backend",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon --inspect=9229 index.js",
+    "debug": "node --inspect-brk=9229 index.js",
+    "serve": "npx http-server public -c-1"
   },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^4.18.2",
     "razorpay": "^2.8.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "http-server": "^14.1.1"
   }
 }

@@ -5,10 +5,7 @@ const express = require("express");
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const cors = require("cors");
-<<<<<<< HEAD
-=======
 const fs = require("fs");
->>>>>>> 206bbe52fed535c60f0c7b11a487e9490f8afb87
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -16,7 +13,7 @@ const PUBLIC_DIR = path.join(__dirname, "public");
 const FILES_DIR = path.join(__dirname, "files");
 
 const PLAN_CONFIG = {
-  "Basic Plan": { slug: "basic", file: "basic.pdf" },
+  "Basic Plan": { slug: "basic", file: "2026.pdf" },
   "Standard Plan": { slug: "standard", file: "standard.pdf" },
   "Premium Plan": { slug: "premium", file: "premium.pdf" },
 };
@@ -25,9 +22,6 @@ const DOWNLOAD_TO_FILE = Object.fromEntries(
   Object.values(PLAN_CONFIG).map((entry) => [entry.slug, entry.file])
 );
 
-<<<<<<< HEAD
-if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
-=======
 function getRazorpayCredentials() {
   const keyId = process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEYID;
   const keySecret =
@@ -43,7 +37,6 @@ function getRazorpaySecret() {
 const { keyId, keySecret } = getRazorpayCredentials();
 
 if (!keyId || !keySecret) {
->>>>>>> 206bbe52fed535c60f0c7b11a487e9490f8afb87
   console.warn("Warning: Razorpay credentials are not fully configured.");
 }
 
@@ -51,6 +44,12 @@ app.disable("x-powered-by");
 app.use(cors());
 app.use(express.json({ limit: "50kb" }));
 app.use(express.urlencoded({ extended: true, limit: "50kb" }));
+
+// Simple request logger to make debugging easier without extra deps
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} ${req.method} ${req.url}`);
+  next();
+});
 
 app.use(
   express.static(PUBLIC_DIR, {
@@ -68,20 +67,7 @@ pages.forEach((page) => {
   });
 });
 
-const razorpay =
-<<<<<<< HEAD
-  process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET
-    ? new Razorpay({
-        key_id: process.env.RAZORPAY_KEY_ID,
-        key_secret: process.env.RAZORPAY_KEY_SECRET,
-=======
-  keyId && keySecret
-    ? new Razorpay({
-        key_id: keyId,
-        key_secret: keySecret,
->>>>>>> 206bbe52fed535c60f0c7b11a487e9490f8afb87
-      })
-    : null;
+const razorpay = keyId && keySecret ? new Razorpay({ key_id: keyId, key_secret: keySecret }) : null;
 
 app.post("/create-order", async (req, res) => {
   try {
@@ -104,17 +90,7 @@ app.post("/create-order", async (req, res) => {
 
     const order = await razorpay.orders.create(options);
 
-    return res.json({
-<<<<<<< HEAD
-      key: process.env.RAZORPAY_KEY_ID,
-=======
-      key: keyId,
->>>>>>> 206bbe52fed535c60f0c7b11a487e9490f8afb87
-      orderId: order.id,
-      amount: order.amount,
-      currency: order.currency,
-      plan,
-    });
+    return res.json({ key: keyId, orderId: order.id, amount: order.amount, currency: order.currency, plan });
   } catch (err) {
     console.error("Order creation error:", err);
     return res.status(500).json({ error: "Order creation failed" });
@@ -122,13 +98,9 @@ app.post("/create-order", async (req, res) => {
 });
 
 app.post("/verify-payment", (req, res) => {
-<<<<<<< HEAD
-  if (!process.env.RAZORPAY_KEY_SECRET) {
-=======
   const razorpaySecret = getRazorpaySecret();
 
   if (!razorpaySecret) {
->>>>>>> 206bbe52fed535c60f0c7b11a487e9490f8afb87
     return res.status(503).json({ success: false, error: "Payment service unavailable" });
   }
 
@@ -140,14 +112,7 @@ app.post("/verify-payment", (req, res) => {
 
   const payload = `${razorpay_order_id}|${razorpay_payment_id}`;
 
-  const expectedSignature = crypto
-<<<<<<< HEAD
-    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || "")
-=======
-    .createHmac("sha256", razorpaySecret)
->>>>>>> 206bbe52fed535c60f0c7b11a487e9490f8afb87
-    .update(payload)
-    .digest("hex");
+  const expectedSignature = crypto.createHmac("sha256", razorpaySecret).update(payload).digest("hex");
 
   const isValidSignature =
     expectedSignature.length === razorpay_signature.length &&
@@ -157,10 +122,7 @@ app.post("/verify-payment", (req, res) => {
     return res.status(400).json({ success: false });
   }
 
-  return res.json({
-    success: true,
-    download: `/download/${PLAN_CONFIG[plan].slug}`,
-  });
+  return res.json({ success: true, download: `/download/${PLAN_CONFIG[plan].slug}` });
 });
 
 app.get("/download/:plan", (req, res) => {
@@ -171,14 +133,10 @@ app.get("/download/:plan", (req, res) => {
   }
 
   const filePath = path.join(FILES_DIR, fileName);
-
-<<<<<<< HEAD
-=======
   if (!fs.existsSync(filePath)) {
     return res.status(404).send("File not found");
   }
 
->>>>>>> 206bbe52fed535c60f0c7b11a487e9490f8afb87
   return res.download(filePath, fileName, (err) => {
     if (err && !res.headersSent) {
       console.error("Download error:", err);
