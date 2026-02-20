@@ -14,7 +14,7 @@ module.exports = (req, res) => {
     return res.status(405).send("Method not allowed");
   }
 
-  const plan = req.query?.plan;
+  const plan = req.query?.plan || req.params?.plan;
   const fileName = DOWNLOAD_TO_FILE[plan];
 
   if (!fileName) {
