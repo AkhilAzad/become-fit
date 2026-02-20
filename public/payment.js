@@ -1,16 +1,52 @@
-const API_BASE_URL = window.location.origin.includes("localhost")
-  ? "http://localhost:3000"
-  : window.location.origin;
+const IS_LOCAL = window.location.origin.includes("localhost");
+const API_BASE_CANDIDATES = IS_LOCAL
+  ? ["http://localhost:3000"]
+  : [`${window.location.origin}/api`, window.location.origin];
+
+async function parseJsonResponse(response) {
+  const contentType = response.headers.get("content-type") || "";
+
+  if (!contentType.includes("application/json")) {
+    const text = await response.text();
+    const error = new Error("Unexpected response from payment server");
+    error.responseText = text;
+    throw error;
+  }
+
+  return response.json();
+}
+
+async function postJsonWithFallback(path, payload) {
+  let lastError;
+
+  for (const baseUrl of API_BASE_CANDIDATES) {
+    try {
+      const response = await fetch(`${baseUrl}${path}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const data = await parseJsonResponse(response);
+      return { response, data };
+    } catch (err) {
+      lastError = err;
+    }
+  }
+
+  if (lastError?.responseText?.includes("The page could not be found")) {
+    throw new Error("Payment API endpoint not found. Please redeploy the backend routes.");
+  }
+
+  throw new Error("Unable to reach payment service. Please try again.");
+}
 
 async function startPayment(amount, plan) {
   try {
-    const orderResponse = await fetch(`${API_BASE_URL}/create-order`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount, plan }),
+    const { response: orderResponse, data } = await postJsonWithFallback("/create-order", {
+      amount,
+      plan,
     });
-
-    const data = await orderResponse.json();
 
     if (!orderResponse.ok) {
       throw new Error(data.error || "Order creation failed");
@@ -25,18 +61,15 @@ async function startPayment(amount, plan) {
       order_id: data.orderId,
       handler: async function (response) {
         try {
-          const verifyResponse = await fetch(`${API_BASE_URL}/verify-payment`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
+          const { response: verifyResponse, data: result } = await postJsonWithFallback(
+            "/verify-payment",
+            {
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_order_id: response.razorpay_order_id,
               razorpay_signature: response.razorpay_signature,
               plan,
-            }),
-          });
-
-          const result = await verifyResponse.json();
+            }
+          );
 
           if (!verifyResponse.ok || !result.success) {
             throw new Error(result.error || "Payment verification failed");
@@ -46,7 +79,7 @@ async function startPayment(amount, plan) {
             "<h2 style='text-align:center;margin-top:100px;'>Payment Successful. Preparing your download...</h2>";
 
           setTimeout(() => {
-            window.location.href = `${API_BASE_URL}${result.download}`;
+            window.location.href = `${window.location.origin}${result.download}`;
           }, 1500);
         } catch (err) {
           console.error(err);
