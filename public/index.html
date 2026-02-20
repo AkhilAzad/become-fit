@@ -1,147 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Become Fit with Akhil</title>
+  <title>Become Fit | Professional Fitness Coaching Platform</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="about.css" />
 </head>
-
 <body>
-
-  <!-- Cinematic hover overlay -->
-  <div class="screen-overlay"></div>
-
   <div class="page-wrap">
-
-    <!-- HEADER WITH NAV -->
     <header class="site-header">
-      <div class="logo">
-        Become Fit
-      </div>
-
+      <div class="logo">Become Fit</div>
       <nav class="main-nav">
         <a href="about.html">About</a>
-        <a href="privacy.html">Privacy</a>
+        <a href="payment.html">Programs</a>
         <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
         <a href="refund.html">Refund</a>
       </nav>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <div class="container intro hero">
-
-      <div class="hero-content">
+    <main class="container home-grid">
+      <section class="hero-copy">
         <header class="header">
-          <h1>Hi, I’m Akhil</h1>
-          <p class="tagline">
-            Helping people transform their body, mindset, and discipline.
-          </p>
-          <span class="subline">
-            Built from real training, real discipline, real results.
-          </span>
+          <h1>Train Smarter. Build Real Discipline. Transform for Life.</h1>
+          <p class="tagline">A premium, structured digital coaching experience designed for beginners, athletes, and busy professionals.</p>
         </header>
-
-        <section class="about" id="about">
-          <p>
-            I’m a fitness athlete who believes real transformation comes from
-            discipline, consistency, and smart training — not shortcuts or fake promises.
-          </p>
-
-          <p>
-            Over the years, I’ve trained myself through failures, plateaus, injuries,
-            and breakthroughs. Every method in this program is built from what actually
-            works in the real world, not theory.
-          </p>
-
-          <p>
-            This isn’t just a workout plan. It’s a system designed to rebuild your habits,
-            mindset, and confidence — whether your goal is fat loss, muscle building,
-            strength, or overall fitness.
-          </p>
-
-          <p>
-            If you’re tired of starting over, following random routines, or losing
-            motivation, this program gives you structure, clarity, and direction.
-          </p>
-
-          <p>
-            This is for people who are serious about change — beginners who want to
-            start right, and experienced lifters who want to train with purpose.
-          </p>
-        </section>
-
-        <section class="not-for">
-          <h2>Who This Is NOT For</h2>
-          <ul>
-            <li>People looking for quick fixes or “30-day magic transformations”.</li>
-            <li>Anyone unwilling to train consistently or stay disciplined.</li>
-            <li>Those who jump programs without committing.</li>
-            <li>People expecting results without effort or patience.</li>
-            <li>Anyone wanting motivation only — not real systems.</li>
-          </ul>
-          <p class="not-for-note">
-            If you’re serious about long-term change, this program was built for you.
-          </p>
-        </section>
-
+        <p>Become Fit is a client-ready fitness education platform focused on practical systems: training blocks, progression, recovery, and nutrition behavior. Every module is direct, clear, and built for measurable progress.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="payment.html">Choose Your Program</a>
+        </div>
         <section class="stats">
-          <div>
-            <strong>15000+</strong>
-            <span>People Inspired</span>
-          </div>
-          <div>
-            <strong>2 Years</strong>
-            <span>Training Experience</span>
-          </div>
-          <div>
-            <strong>100%</strong>
-            <span>Real Methods</span>
-          </div>
+          <article><strong>15,000+</strong><span>People Reached</span></article>
+          <article><strong>3-Tier</strong><span>Program System</span></article>
+          <article><strong>100%</strong><span>Digital Delivery</span></article>
         </section>
+      </section>
 
-        <section class="cta">
-          <button onclick="goToPayment()">Start Your Transformation</button>
-          <p class="note">One-time payment. Lifetime access.</p>
-        </section>
-      </div>
+      <aside class="hero-panel">
+        <img src="images/hero.jpeg" alt="Become Fit athlete" />
+        <div class="panel-card">
+          <h2 class="section-title">Who It's For</h2>
+          <ul>
+            <li>Beginners who need a complete roadmap</li>
+            <li>Intermediate lifters stuck at plateaus</li>
+            <li>Professionals who need time-efficient systems</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
 
-      <div class="hero-image">
-        <img src="images/hero.jpeg" alt="Akhil Fitness Transformation" />
-      </div>
-
-      <footer class="footer">
-        <p>© 2026 Become Fit</p>
-      </footer>
-
-    </div>
+    <footer class="footer">© 2026 Become Fit. All rights reserved.</footer>
   </div>
-
-  <script>
-    function goToPayment() {
-      window.location.href = "payment.html";
-    }
-
-    const overlay = document.querySelector(".screen-overlay");
-
-    document.addEventListener("mousemove", (e) => {
-      const x = (e.clientX / window.innerWidth) * 100;
-      const y = (e.clientY / window.innerHeight) * 100;
-
-      overlay.style.background = `
-        radial-gradient(
-          circle at ${x}% ${y}%,
-          rgba(0,0,0,0.08) 0%,
-          rgba(0,0,0,0.35) 40%,
-          rgba(0,0,0,0.65) 70%,
-          rgba(0,0,0,0.85) 100%
-        )
-      `;
-    });
-  </script>
-
 </body>
-
 </html>
