@@ -1,7 +1,21 @@
 const IS_LOCAL = window.location.origin.includes("localhost");
-const API_BASE_CANDIDATES = IS_LOCAL
-  ? ["http://localhost:3000"]
-  : [`${window.location.origin}/api`, window.location.origin];
+
+function normalizeBaseUrl(value) {
+  return String(value || "").trim().replace(/\/+$/, "");
+}
+
+function getApiBaseCandidates() {
+  const runtimeBase = normalizeBaseUrl(window.BECOME_FIT_API_BASE);
+  const storedBase = normalizeBaseUrl(window.localStorage?.getItem("becomefit_api_base"));
+
+  const defaults = IS_LOCAL
+    ? ["http://localhost:3000"]
+    : [`${window.location.origin}/api`, window.location.origin];
+
+  return [...new Set([runtimeBase, storedBase, ...defaults].filter(Boolean))];
+}
+
+const API_BASE_CANDIDATES = getApiBaseCandidates();
 
 async function parseJsonResponse(response) {
   const contentType = response.headers.get("content-type") || "";
@@ -18,6 +32,7 @@ async function parseJsonResponse(response) {
 
 async function postJsonWithFallback(path, payload) {
   let lastError;
+  let lastFailedResponse;
 
   for (const baseUrl of API_BASE_CANDIDATES) {
     try {
@@ -28,10 +43,31 @@ async function postJsonWithFallback(path, payload) {
       });
 
       const data = await parseJsonResponse(response);
+
+      if (!response.ok) {
+        const errorText = String(data?.error || "").toLowerCase();
+        const shouldRetryOnThisBase =
+          response.status === 401 ||
+          response.status === 403 ||
+          response.status === 404 ||
+          errorText.includes("authentication failed") ||
+          errorText.includes("unauthorized");
+
+        lastFailedResponse = { response, data };
+
+        if (shouldRetryOnThisBase) {
+          continue;
+        }
+      }
+
       return { response, data };
     } catch (err) {
       lastError = err;
     }
+  }
+
+  if (lastFailedResponse) {
+    return lastFailedResponse;
   }
 
   if (lastError?.responseText?.includes("The page could not be found")) {
