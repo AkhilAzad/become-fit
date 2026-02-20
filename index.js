@@ -5,6 +5,7 @@ const express = require("express");
 const Razorpay = require("razorpay");
 const crypto = require("crypto");
 const cors = require("cors");
+const fs = require("fs");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,7 +22,21 @@ const DOWNLOAD_TO_FILE = Object.fromEntries(
   Object.values(PLAN_CONFIG).map((entry) => [entry.slug, entry.file])
 );
 
-if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+function getRazorpayCredentials() {
+  const keyId = process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEYID;
+  const keySecret =
+    process.env.RAZORPAY_KEY_SECRET || process.env.RAZORPAY_SECRET || process.env.RAZORPAY_SECRET_KEY;
+
+  return { keyId, keySecret };
+}
+
+function getRazorpaySecret() {
+  return getRazorpayCredentials().keySecret;
+}
+
+const { keyId, keySecret } = getRazorpayCredentials();
+
+if (!keyId || !keySecret) {
   console.warn("Warning: Razorpay credentials are not fully configured.");
 }
 
@@ -47,10 +62,10 @@ pages.forEach((page) => {
 });
 
 const razorpay =
-  process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET
+  keyId && keySecret
     ? new Razorpay({
-        key_id: process.env.RAZORPAY_KEY_ID,
-        key_secret: process.env.RAZORPAY_KEY_SECRET,
+        key_id: keyId,
+        key_secret: keySecret,
       })
     : null;
 
@@ -76,7 +91,7 @@ app.post("/create-order", async (req, res) => {
     const order = await razorpay.orders.create(options);
 
     return res.json({
-      key: process.env.RAZORPAY_KEY_ID,
+      key: keyId,
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
@@ -89,7 +104,9 @@ app.post("/create-order", async (req, res) => {
 });
 
 app.post("/verify-payment", (req, res) => {
-  if (!process.env.RAZORPAY_KEY_SECRET) {
+  const razorpaySecret = getRazorpaySecret();
+
+  if (!razorpaySecret) {
     return res.status(503).json({ success: false, error: "Payment service unavailable" });
   }
 
@@ -102,7 +119,7 @@ app.post("/verify-payment", (req, res) => {
   const payload = `${razorpay_order_id}|${razorpay_payment_id}`;
 
   const expectedSignature = crypto
-    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || "")
+    .createHmac("sha256", razorpaySecret)
     .update(payload)
     .digest("hex");
 
@@ -128,6 +145,10 @@ app.get("/download/:plan", (req, res) => {
   }
 
   const filePath = path.join(FILES_DIR, fileName);
+
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).send("File not found");
+  }
 
   return res.download(filePath, fileName, (err) => {
     if (err && !res.headersSent) {
