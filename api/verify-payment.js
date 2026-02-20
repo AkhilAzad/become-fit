@@ -8,12 +8,18 @@ const PLAN_CONFIG = {
   "Premium Plan": { slug: "premium", file: "premium.pdf" },
 };
 
+function getRazorpaySecret() {
+  return process.env.RAZORPAY_KEY_SECRET || process.env.RAZORPAY_SECRET || process.env.RAZORPAY_SECRET_KEY;
+}
+
 module.exports = (req, res) => {
   if (req.method !== "POST") {
     return res.status(405).json({ success: false, error: "Method not allowed" });
   }
 
-  if (!process.env.RAZORPAY_KEY_SECRET) {
+  const razorpaySecret = getRazorpaySecret();
+
+  if (!razorpaySecret) {
     return res.status(503).json({ success: false, error: "Payment service unavailable" });
   }
 
@@ -26,7 +32,7 @@ module.exports = (req, res) => {
   const payload = `${razorpay_order_id}|${razorpay_payment_id}`;
 
   const expectedSignature = crypto
-    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+    .createHmac("sha256", razorpaySecret)
     .update(payload)
     .digest("hex");
 
