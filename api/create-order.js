@@ -8,13 +8,13 @@ const PLAN_CONFIG = {
   "Premium Plan": { slug: "premium", file: "premium.pdf" },
 };
 
-const razorpay =
-  process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET
-    ? new Razorpay({
-        key_id: process.env.RAZORPAY_KEY_ID,
-        key_secret: process.env.RAZORPAY_KEY_SECRET,
-      })
-    : null;
+function getRazorpayCredentials() {
+  const keyId = process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEYID;
+  const keySecret =
+    process.env.RAZORPAY_KEY_SECRET || process.env.RAZORPAY_SECRET || process.env.RAZORPAY_SECRET_KEY;
+
+  return { keyId, keySecret };
+}
 
 module.exports = async (req, res) => {
   if (req.method !== "POST") {
@@ -22,9 +22,16 @@ module.exports = async (req, res) => {
   }
 
   try {
-    if (!razorpay) {
+    const { keyId, keySecret } = getRazorpayCredentials();
+
+    if (!keyId || !keySecret) {
       return res.status(503).json({ error: "Payment service unavailable" });
     }
+
+    const razorpay = new Razorpay({
+      key_id: keyId,
+      key_secret: keySecret,
+    });
 
     const amount = Number(req.body?.amount);
     const plan = String(req.body?.plan || "").trim();
@@ -42,7 +49,7 @@ module.exports = async (req, res) => {
     const order = await razorpay.orders.create(options);
 
     return res.status(200).json({
-      key: process.env.RAZORPAY_KEY_ID,
+      key: keyId,
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
@@ -50,6 +57,8 @@ module.exports = async (req, res) => {
     });
   } catch (err) {
     console.error("Order creation error:", err);
-    return res.status(500).json({ error: "Order creation failed" });
+    return res.status(500).json({
+      error: err?.error?.description || err?.message || "Order creation failed",
+    });
   }
 };
