@@ -21,7 +21,17 @@ const DOWNLOAD_TO_FILE = Object.fromEntries(
   Object.values(PLAN_CONFIG).map((entry) => [entry.slug, entry.file])
 );
 
-if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+function getRazorpayCredentials() {
+  const keyId = process.env.RAZORPAY_KEY_ID || process.env.RAZORPAY_KEYID;
+  const keySecret =
+    process.env.RAZORPAY_KEY_SECRET || process.env.RAZORPAY_SECRET || process.env.RAZORPAY_SECRET_KEY;
+
+  return { keyId, keySecret };
+}
+
+const { keyId: razorpayKeyId, keySecret: razorpayKeySecret } = getRazorpayCredentials();
+
+if (!razorpayKeyId || !razorpayKeySecret) {
   console.warn("Warning: Razorpay credentials are not fully configured.");
 }
 
@@ -47,10 +57,10 @@ pages.forEach((page) => {
 });
 
 const razorpay =
-  process.env.RAZORPAY_KEY_ID && process.env.RAZORPAY_KEY_SECRET
+  razorpayKeyId && razorpayKeySecret
     ? new Razorpay({
-        key_id: process.env.RAZORPAY_KEY_ID,
-        key_secret: process.env.RAZORPAY_KEY_SECRET,
+        key_id: razorpayKeyId,
+        key_secret: razorpayKeySecret,
       })
     : null;
 
@@ -76,7 +86,7 @@ app.post("/create-order", async (req, res) => {
     const order = await razorpay.orders.create(options);
 
     return res.json({
-      key: process.env.RAZORPAY_KEY_ID,
+      key: razorpayKeyId,
       orderId: order.id,
       amount: order.amount,
       currency: order.currency,
@@ -89,7 +99,7 @@ app.post("/create-order", async (req, res) => {
 });
 
 app.post("/verify-payment", (req, res) => {
-  if (!process.env.RAZORPAY_KEY_SECRET) {
+  if (!razorpayKeySecret) {
     return res.status(503).json({ success: false, error: "Payment service unavailable" });
   }
 
@@ -102,7 +112,7 @@ app.post("/verify-payment", (req, res) => {
   const payload = `${razorpay_order_id}|${razorpay_payment_id}`;
 
   const expectedSignature = crypto
-    .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET || "")
+    .createHmac("sha256", razorpayKeySecret || "")
     .update(payload)
     .digest("hex");
 
