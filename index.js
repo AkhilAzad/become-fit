@@ -13,7 +13,7 @@ const PUBLIC_DIR = path.join(__dirname, "public");
 const FILES_DIR = path.join(__dirname, "files");
 
 const PLAN_CONFIG = {
-  "Basic Plan": { slug: "basic", file: "2026.pdf" },
+  "Basic Plan": { slug: "basic", file: "basic.pdf" },
   "Standard Plan": { slug: "standard", file: "standard.pdf" },
   "Premium Plan": { slug: "premium", file: "premium.pdf" },
 };

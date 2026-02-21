@@ -13,22 +13,174 @@
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: scaleIn 0.6s ease-out forwards;
+  opacity: 0;
 }
 
-.plan-column h2 { font-size: 1.2rem; }
-.features-list { margin-left: 1rem; color: #d5def5; min-height: 120px; }
-.features-list li { margin-bottom: 0.45rem; }
-.price { font-size: 2rem; font-weight: 800; color: #6ef3cb; }
-.price-note { color: #a7b4d4; font-size: 0.9rem; }
-.payBtn { width: 100%; }
-.payBtn, .badge { font-family: inherit; }
-.payBtn {
-  background: linear-gradient(135deg, #4da3ff, #6ef3cb);
-  border: none; border-radius: 10px; padding: 0.75rem;
-  font-weight: 700; cursor: pointer;
+.plan-column:nth-child(1) { animation-delay: 0.1s; }
+.plan-column:nth-child(2) { animation-delay: 0.2s; }
+.plan-column:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95, 0.85); }
+  to { opacity: 1; transform: scale(1, 1); }
 }
-.plan-column .payBtn { margin-top: auto; }
-.badge { font-size: .75rem; color: #6ef3cb; }
+
+.plan-column::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.plan-column:hover::before {
+  left: 100%;
+}
+
+.plan-column::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #58a8ff, #6ef3cb);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.plan-column:hover::after {
+  transform: scaleX(1);
+}
+
+.plan-column:hover {
+  background: rgba(88, 168, 255, 0.1);
+  border-color: rgba(88, 168, 255, 0.3);
+  transform: translateY(-8px);
+  box-shadow: 0 25px 60px rgba(88, 168, 255, 0.25);
+}
+
+.plan-column::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.plan-column:hover::before {
+  left: 100%;
+}
+
+.plan-column:hover {
+  background: rgba(88, 168, 255, 0.1);
+  border-color: rgba(88, 168, 255, 0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(88, 168, 255, 0.2);
+}
+
+.plan-column h2 { 
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.plan-column:hover h2 {
+  color: #6ef3cb;
+}
+
+.features-list { 
+  margin-left: 1rem; 
+  color: #d5def5; 
+  min-height: 120px;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.features-list li { margin-bottom: 0.45rem; }
+
+.plan-column:hover .features-list {
+  color: #ecf2ff;
+}
+
+.price { 
+  font-size: 2rem; 
+  font-weight: 800; 
+  color: #6ef3cb;
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.plan-column:hover .price {
+  transform: scale(1.1);
+}
+
+.price-note { 
+  color: #a7b4d4; 
+  font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
+}
+
+.payBtn { 
+  width: 100%;
+  font-family: inherit;
+  background: linear-gradient(135deg, #4da3ff, #6ef3cb);
+  border: none;
+  border-radius: 10px;
+  padding: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+  font-size: 0.95rem;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  box-shadow: 0 8px 20px rgba(88, 168, 255, 0.25);
+}
+
+.payBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(88, 168, 255, 0.5);
+}
+
+.payBtn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(88, 168, 255, 0.3);
+}
+
+.badge { 
+  font-size: .75rem; 
+  color: #6ef3cb;
+  font-family: inherit;
+  font-weight: 700;
+  padding: 0.3rem 0.6rem;
+  background: rgba(110, 243, 203, 0.1);
+  border-radius: 8px;
+  display: inline-block;
+  width: fit-content;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
 
 @media (max-width: 980px) {
   .plans-compare { grid-template-columns: 1fr; }

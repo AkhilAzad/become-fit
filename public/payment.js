@@ -9,7 +9,7 @@ function getApiBaseCandidates() {
   const storedBase = normalizeBaseUrl(window.localStorage?.getItem("becomefit_api_base"));
 
   const defaults = IS_LOCAL
-    ? ["http://localhost:3000"]
+    ? ["http://localhost:8080"]
     : [`${window.location.origin}/api`, window.location.origin];
 
   return [...new Set([runtimeBase, storedBase, ...defaults].filter(Boolean))];

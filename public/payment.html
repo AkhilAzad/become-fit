@@ -3,9 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Programs | Become Fit</title>
+  <meta name="description" content="Choose your Become Fit program - Basic, Standard, or Premium fitness coaching packages. One-time payment, instant digital access to comprehensive fitness guides." />
+  <meta name="keywords" content="fitness programs, workout plans, training guides, fitness membership, online coaching" />
+  <meta property="og:title" content="Programs | Become Fit - Choose Your Fitness Plan" />
+  <meta property="og:description" content="Three-tier fitness coaching programs - from Basic to Premium. Instant access to workout and nutrition guides." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Programs | Become Fit - Choose Your Fitness Plan</title>
+  <link rel="canonical" href="https://becomfit.com/programs" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="payment.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Become Fit Programs",
+    "description": "Premium fitness coaching packages",
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Basic Plan",
+        "price": "99",
+        "priceCurrency": "INR"
+      },
+      {
+        "@type": "Offer",
+        "name": "Standard Plan",
+        "price": "249",
+        "priceCurrency": "INR"
+      },
+      {
+        "@type": "Offer",
+        "name": "Premium Plan",
+        "price": "449",
+        "priceCurrency": "INR"
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="page-wrap">
@@ -16,31 +51,31 @@
 
     <main class="container">
       <header class="header">
-        <h1>Choose Your Program</h1>
-        <p class="tagline">One-time payment. Instant PDF access. Built for real progress.</p>
+        <h1>Choose Your Fitness System</h1>
+        <p class="tagline">Complete, science-backed programs delivered instantly. Start today, transform forever.</p>
       </header>
 
       <section class="plans-compare">
         <article class="plan-column">
-          <h2>Basic Plan</h2>
-          <ul class="features-list"><li>Workout framework</li><li>Beginner friendly progression</li><li>Core movement guidance</li></ul>
+          <h2>Essentials Plan</h2>
+          <ul class="features-list"><li>Complete workout framework</li><li>Progressive exercise progression</li><li>Movement standards & form guide</li><li>4-week beginner system</li></ul>
           <div class="price">₹99</div><p class="price-note">One-time payment</p>
-          <button class="payBtn" onclick="startPayment(99, 'Basic Plan')">Get Exercise PDF</button>
+          <button class="payBtn" onclick="startPayment(99, 'Basic Plan')">Get Started</button>
         </article>
 
         <article class="plan-column">
-          <h2>Standard Plan</h2>
-          <ul class="features-list"><li>Everything in Basic</li><li>Complete transformation guide</li><li>Structured training split</li></ul>
+          <h2>Complete Plan</h2>
+          <ul class="features-list"><li>Everything in Essentials</li><li>12-week transformation protocol</li><li>Structured training splits</li><li>Progression strategies included</li></ul>
           <div class="price">₹249</div><p class="price-note">One-time payment</p>
-          <button class="payBtn" onclick="startPayment(249, 'Standard Plan')">Unlock Training Guide</button>
+          <button class="payBtn" onclick="startPayment(249, 'Standard Plan')">Best for Progress</button>
         </article>
 
         <article class="plan-column">
-          <span class="badge">RECOMMENDED</span>
-          <h2>Premium Plan</h2>
-          <ul class="features-list"><li>Everything in Standard</li><li>Nutrition and recovery guidance</li><li>Complete digital package</li></ul>
-          <div class="price">₹449</div><p class="price-note">One-time payment · Instant access</p>
-          <button class="payBtn" onclick="startPayment(449, 'Premium Plan')">Unlock Complete Guide</button>
+          <span class="badge">COMPLETE PACKAGE</span>
+          <h2>Complete + Nutrition</h2>
+          <ul class="features-list"><li>Everything in Complete</li><li>Detailed nutrition guide</li><li>Recovery & supplementation</li><li>Expert-curated complete system</li></ul>
+          <div class="price">₹449</div><p class="price-note">One-time payment · Lifetime access</p>
+          <button class="payBtn" onclick="startPayment(449, 'Premium Plan')">Full Transformation</button>
         </article>
       </section>
     </main>
