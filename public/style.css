@@ -23,37 +23,6 @@
   to { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
-
-@keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.7; }
-}
-
-@keyframes glow {
-  0% { box-shadow: 0 0 5px rgba(88, 168, 255, 0.3); }
-  50% { box-shadow: 0 0 20px rgba(88, 168, 255, 0.6); }
-  100% { box-shadow: 0 0 5px rgba(88, 168, 255, 0.3); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -1000px 0; }
-  100% { background-position: 1000px 0; }
-}
-
 /* Reset */
 * {
   box-sizing: border-box;
@@ -132,8 +101,7 @@ body {
   border-radius: 999px;
 }
 
-.main-nav a:hover,
-.main-nav a:focus-visible {
+.main-nav a:hover {
   color: var(--text);
   border-color: var(--border);
   background: rgba(255, 255, 255, 0.06);
@@ -176,7 +144,7 @@ body {
   margin-bottom: 0.8rem;
 }
 
-/* Button */
+/* Buttons */
 .btn-primary {
   background: linear-gradient(135deg, var(--primary), var(--primary-2));
   color: #07121f;
@@ -188,10 +156,31 @@ body {
   text-decoration: none;
   display: inline-flex;
   justify-content: center;
+  align-items: center;
   transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(88, 168, 255, 0.3);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-2));
+  color: #07121f;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  padding: 0.85rem 1.2rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 25px rgba(88, 168, 255, 0.3);
 }
@@ -204,10 +193,13 @@ body {
   justify-items: center;
 }
 
+/* Hero Actions */
 .hero-actions {
-  margin: 1.25rem 0;
+  margin: 1.4rem 0;
   display: flex;
   justify-content: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
 }
 
 /* Stats */
@@ -263,6 +255,18 @@ body {
   }
 }
 
+@media (max-width: 600px) {
+  .hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
+
 @media (min-width: 2200px) {
   .page-wrap {
     width: min(1400px, 92vw);
@@ -270,5 +274,94 @@ body {
 
   .container {
     border-radius: 28px;
+  }
+}
+
+/* Coaching Page */
+/* =========================
+   COACHING PAGE (FINAL CLEAN)
+========================= */
+
+/* HERO */
+.coaching-hero {
+  text-align: center;
+  max-width: 850px;
+  margin: 0 auto 3rem auto;
+}
+
+.coaching-hero h1 {
+  margin-bottom: 1rem;
+}
+
+.coaching-hero .tagline {
+  margin-bottom: 1rem;
+}
+
+.hero-desc {
+  color: var(--muted);
+  margin: 1rem auto 1.5rem auto;
+  max-width: 700px;
+}
+
+
+/* =========================
+   WHAT'S INCLUDED BOX
+========================= */
+
+.coaching-section {
+  max-width: 900px;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+}
+
+.coaching-section .section-title {
+  margin-bottom: 2rem;
+}
+
+
+/* GRID */
+.coaching-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 2rem;
+  justify-content: center;
+}
+
+
+/* ITEMS */
+.coaching-item {
+  text-align: center;
+  padding: 0.5rem 1rem;
+}
+
+.coaching-item h3 {
+  font-size: 1rem;
+  margin-bottom: 0.6rem;
+  color: var(--primary-2);
+}
+
+.coaching-item p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .coaching-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  .coaching-section {
+    max-width: 850px;
   }
 }
